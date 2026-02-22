@@ -54,7 +54,7 @@
         "margin_bottom": 8,
         "margin_left": 8,
         "margin_right": 8,
-        "border_radius": 6,
+        "border_radius": 8,
         "box_shadow_enabled": false,
         "box_shadow_vertical": 4,
         "box_shadow_blur": 8,
