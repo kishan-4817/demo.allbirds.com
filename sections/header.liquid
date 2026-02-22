@@ -83,12 +83,26 @@
 
   .section-header {
     position: sticky; /* This is for fixing a Safari z-index issue. PR #2147 */
+    margin-top: {{ section.settings.margin_top | times: 0.75 | round: 0 }}px;
     margin-bottom: {{ section.settings.margin_bottom | times: 0.75 | round: 0 }}px;
+    margin-left: {{ section.settings.margin_left | times: 0.75 | round: 0 }}px;
+    margin-right: {{ section.settings.margin_right | times: 0.75 | round: 0 }}px;
+    border-radius: {{ section.settings.border_radius | times: 0.75 | round: 0 }}px;
+    {% if section.settings.box_shadow_enabled %}
+      box-shadow: 0 {{ section.settings.box_shadow_vertical | times: 0.75 | round: 0 }}px {{ section.settings.box_shadow_blur | times: 0.75 | round: 0 }}px rgba(var(--color-shadow), {{ section.settings.box_shadow_opacity | divided_by: 100.0 }});
+    {% endif %}
   }
 
   @media screen and (min-width: 750px) {
     .section-header {
+      margin-top: {{ section.settings.margin_top }}px;
       margin-bottom: {{ section.settings.margin_bottom }}px;
+      margin-left: {{ section.settings.margin_left }}px;
+      margin-right: {{ section.settings.margin_right }}px;
+      border-radius: {{ section.settings.border_radius }}px;
+      {% if section.settings.box_shadow_enabled %}
+        box-shadow: 0 {{ section.settings.box_shadow_vertical }}px {{ section.settings.box_shadow_blur }}px rgba(var(--color-shadow), {{ section.settings.box_shadow_opacity | divided_by: 100.0 }});
+      {% endif %}
     }
   }
 
@@ -136,7 +150,7 @@
       assign localization_forms = true
     endif
   -%}
-  <header class="header header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if localization_forms %} header--has-localizations{% endif %}">
+  <header class="header header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} header--menu-{{ section.settings.menu_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if localization_forms %} header--has-localizations{% endif %}">
     {%- liquid
       if section.settings.menu != blank
         render 'header-drawer'
@@ -541,6 +555,26 @@
     },
     {
       "type": "select",
+      "id": "menu_position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left",
+      "label": "Menu Position"
+    },
+    {
+      "type": "select",
       "id": "sticky_header_type",
       "options": [
         {
@@ -616,6 +650,16 @@
     },
     {
       "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Margin Top",
+      "default": 0
+    },
+    {
+      "type": "range",
       "id": "margin_bottom",
       "min": 0,
       "max": 100,
@@ -623,6 +667,76 @@
       "unit": "px",
       "label": "t:sections.header.settings.margin_bottom.label",
       "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_left",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Margin Left",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_right",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Margin Right",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "label": "Border Radius",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Box Shadow"
+    },
+    {
+      "type": "checkbox",
+      "id": "box_shadow_enabled",
+      "label": "Enable Box Shadow",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "box_shadow_vertical",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Shadow Vertical Offset",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "box_shadow_blur",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Shadow Blur Radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "box_shadow_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Shadow Opacity",
+      "default": 20
     },
     {
       "type": "header",

@@ -1,0 +1,57 @@
+/* 
+  override.css
+  
+  Purpose: This file contains custom CSS overrides for the theme.
+  
+  Usage Instructions:
+  - Add your custom CSS rules here to override default theme styles
+  - This file is loaded AFTER all other theme CSS files, so your rules will take precedence
+  - Keep your theme consistent by following existing CSS patterns and variables
+  - Use CSS custom properties (variables) defined in base.css when possible
+  
+  Example - Using CSS Variables:
+  .my-element {
+    color: rgb(var(--color-foreground));
+    background-color: rgb(var(--color-background));
+  }
+  
+  Example - Direct Override:
+  .product-card {
+    padding: 2rem;
+    border-radius: 8px;
+  }
+*/
+
+/* ==========================================
+   HEADER MENU POSITION STYLES
+   ========================================== */
+
+/* Menu Position - Left (default) */
+.header--menu-left {
+  /* Default positioning - menu stays on the left */
+}
+
+/* Menu Position - Center */
+.header--menu-center .header__menu-wrapper,
+.header--menu-center nav.header__inline-menu {
+  justify-content: center;
+}
+
+.header--menu-center .header__inline-menu {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Menu Position - Right */
+.header--menu-right .header__menu-wrapper,
+.header--menu-right nav.header__inline-menu {
+  justify-content: flex-end;
+  margin-left: auto;
+}
+
+.header--menu-right .header__inline-menu {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+/* Add your custom styles below this line */
